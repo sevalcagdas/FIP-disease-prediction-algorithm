@@ -1,0 +1,201 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
+soru1 = input("Kedinizin Ateşi Var Mı? E/H")
+soru2 = input("Kedinizin Yürümesinde Bozukluk Var Mı? E/H")
+soru3= input("Kediniz Zayıfladı Mı? E/H")
+soru4= input("Kedinizin Göbek Bölgesinde Şişlik Var Mı? E/H")
+soru5= input("Kedinizde Halsizlik Var Mı? E/H")
+soru6= input("Kediniz Yemek Yemeyi Reddediyor Mu? E/H")
+soru7= input("Kediniz Solunumda Güçlük Yaşıyor Mu? E/H")
+soru8= input("Kedinizin İştahında Bir Azalma Var MI? E/H")
+soru9= input("Kediniz Kaçınma Davranışında Bulunuyor Mu? E/H")
+soru10= input("Kediniz Kilo Aldı Mı? E/H")
+soru11= input("Kediniz Hapşırıyor Mu? E/H")
+soru12= input("Kediniz Enerjisinde Artış Var Mı? E/H")
+soru13= input("Kedinizin İştahında Artış Var Mı? E/H")
+soru14= input("Kedinizde Kabızlık Var Mı? E/H")
+soru15= input("Kedinizde Kusma Var Mı? E/H")
+soru16= input("Kedinizde İshal Var Mı? E/H")
+
+cevap1 = '0'
+cevap2 = '0'
+cevap3 = '0'
+cevap4 = '0'
+cevap5 = '0'
+cevap6 = '0'
+cevap7 = '0'
+cevap8 = '0'
+cevap9 = '0'
+cevap10 = '0'
+cevap11 = '0'
+cevap12 = '0'
+cevap13 = '0'
+cevap14= '0'
+cevap15= '0'
+cevap16= '0'
+
+if (soru1== 'E'): 
+  cevap1= '1' 
+elif (soru1== 'H'): 
+  cevap1= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru2== 'E'): 
+  cevap2= '1' 
+elif (soru2== 'H'): 
+  cevap2= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru3== 'E'): 
+  cevap3= '1' 
+elif (soru3== 'H'): 
+  cevap3= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru4== 'E'): 
+  cevap4= '1' 
+elif (soru4== 'H'): 
+  cevap4= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru5== 'E'): 
+  cevap5= '1' 
+elif (soru5== 'H'): 
+  cevap5= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru6== 'E'): 
+  cevap6= '1' 
+elif (soru6== 'H'): 
+  cevap6= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru7== 'E'): 
+  cevap7= '1' 
+elif (soru7== 'H'): 
+  cevap7= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru8== 'E'): 
+  cevap8= '1' 
+elif (soru8== 'H'): 
+  cevap8= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru9== 'E'): 
+  cevap9= '1' 
+elif (soru9== 'H'): 
+  cevap9= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru10== 'E'): 
+  cevap10= '1' 
+elif (soru10== 'H'): 
+  cevap10= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru11== 'E'): 
+  cevap11= '1' 
+elif (soru11== 'H'): 
+  cevap11= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru12== 'E'): 
+  cevap12= '1' 
+elif (soru12== 'H'): 
+  cevap12= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru13== 'E'): 
+  cevap13= '1' 
+elif (soru13== 'H'): 
+  cevap13= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru14== 'E'): 
+  cevap14= '1' 
+elif (soru14== 'H'): 
+  cevap14= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru15== 'E'): 
+  cevap15= '1' 
+elif (soru15== 'H'): 
+  cevap15= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+if (soru16== 'E'): 
+  cevap16= '1' 
+elif (soru16== 'H'): 
+  cevap16= '0' 
+else: 
+  print('Hatalı Giriş Yaptınız!')
+
+Fip_Data = pd.read_csv("/content/hadiii.csv")
+df=Fip_Data
+x=df[['FEVER','WALKING DISORDER','WEAKNESS','SWELLING IN THE ABDOMINAL AREA','WEAKENING','REJECTING THE MEAL','DYSPNEA','REDUCED APPETITE','AVOID BEHAVIOR','RUNNY NOSE','SNEEZE','SHEDDING OF FEATHERS','RED SKIN','CONSTIPATTION','VOMITING','DIARRHEA']]
+y=df['DISEASE STATUS']
+df
+newList =[cevap1, cevap2, cevap3, cevap4, cevap5, cevap6, cevap7, cevap8, cevap9, cevap10, cevap11, cevap12, cevap13, cevap14, cevap15, cevap16]
+#veriyi eğitim ve test olarak ayırma
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=.2,random_state=0)
+
+# Train veri seti kendi içinden (%10) validation bölümünü ayırıyor
+x_train, x_val, y_train, y_val = train_test_split(x_train, y_train,
+                                                  test_size = 0.1,
+                                                  shuffle = False)
+
+from imblearn.over_sampling import SMOTE
+sm=SMOTE(random_state=80)
+x_test,y_test=sm.fit_resample(x_train,y_train)
+
+clf=GaussianNB()
+clf.fit(x_train,y_train)
+
+from csv import writer
+with open('/content/hadiii.csv', 'a') as f_object:
+  writer_object = writer(f_object)
+  writer_object.writerow(newList)
+
+y_pred=clf.predict(x_test)
+print(classification_report(y_test,y_pred))
+
+# GaussianNB sınıfından bir nesne ürettik
+gnb = GaussianNB()
+
+# Makineyi eğitiyoruz
+gnb.fit(x_train, y_train.ravel())
+
+# Test veri kümemizi verdik ve hastalığı tahmin etmesini sağladık
+result = gnb.predict(x_test)
+
+# Karmaşıklık matrisi
+#from sklearn.metrics import confusion_matrix
+#cm = confusion_matrix (y_test,result)
+#print(cm)
+
+# Başarı Oranı
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(y_test, result)
+print(accuracy)
+
